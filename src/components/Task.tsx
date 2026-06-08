@@ -37,7 +37,7 @@ export default memo(function TaskUi(props: Task) {
           onCancel={handleCancelDelete}
         />
       )}
-      <div className="flex flex-row justify-between items-center bg-white p-4 rounded-md shadow-md">
+      <div className="flex flex-row justify-between items-center bg-white dark:bg-gray-800 p-4 rounded-md shadow-md dark:shadow-gray-900/50">
         <div className="flex flex-col gap-2">
           {isUpdateTaskOpen ? (
             <div>
@@ -56,8 +56,8 @@ export default memo(function TaskUi(props: Task) {
             </div>
           ) : (
             <div>
-              <h1 className="text-2xl font-bold">{title}</h1>
-              <p>{description}</p>
+              <h1 className="text-2xl font-bold dark:text-white">{title}</h1>
+              <p className="text-gray-600 dark:text-gray-400">{description}</p>
             </div>
           )}
         </div>

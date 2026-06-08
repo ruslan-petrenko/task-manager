@@ -21,7 +21,7 @@ const UiInput = forwardRef<HTMLInputElement, InputProps>(function UiInput(
     <div className={`flex flex-col gap-1 ${containerClassName}`}>
       <label
         htmlFor={inputId}
-        className="text-sm font-medium text-gray-700"
+        className="text-sm font-medium text-gray-700 dark:text-white"
       >
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
@@ -32,7 +32,7 @@ const UiInput = forwardRef<HTMLInputElement, InputProps>(function UiInput(
         required={required}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy}
-        className={`w-full p-2 rounded-md border ${
+        className={`w-full p-2 rounded-md border dark:placeholder:text-white-400 dark:text-white border-white/70 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 ${
           error ? 'border-red-500' : 'border-gray-300'
         } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${className}`}
         {...inputProps}

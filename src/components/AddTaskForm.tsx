@@ -7,7 +7,7 @@ export default function AddTaskForm(props: { cancel: () => void }) {
   const { taskTitle, taskDescription, submitted, setTaskTitle, setTaskDescription, handleSubmit, cancelAddTask } = useTaskForm(cancel);
 
   return (
-    <div className="mb-8 flex flex-row justify-between items-end gap-4 rounded-2xl border border-white/70 bg-white/80 p-6 shadow-lg shadow-violet-200/50 backdrop-blur-sm">
+    <div className="mb-8 flex flex-row justify-between items-end gap-4 rounded-2xl border border-white/70 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 p-6 shadow-lg shadow-violet-200/50 dark:shadow-gray-900/50 backdrop-blur-sm">
       <div className="flex flex-row self-baseline gap-2">
         <UiInput
           label="Title"
