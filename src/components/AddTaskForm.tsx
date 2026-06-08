@@ -1,4 +1,3 @@
-import { type Task } from '../types';
 import useTaskForm from '../hooks/useTaskForm';
 import UiInput from './common/UiInput';
 import UiButton from './common/UiButton';
