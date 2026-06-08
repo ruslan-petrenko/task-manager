@@ -1,0 +1,26 @@
+@reference "../../index.css";
+@variant dark (&:where(.dark, .dark *));
+
+.column {
+  @apply flex flex-col gap-3 rounded-xl p-4 min-h-96 transition-colors border;
+}
+
+.columnDefault {
+  @apply bg-white/60 dark:bg-gray-800/60 border-white/70 dark:border-gray-700/50;
+}
+
+.columnOver {
+  @apply bg-violet-50 dark:bg-violet-900/20 border-violet-300 dark:border-violet-600;
+}
+
+.header {
+  @apply flex items-center justify-between mb-1;
+}
+
+.label {
+  @apply text-base font-semibold text-violet-900 dark:text-violet-300;
+}
+
+.badge {
+  @apply text-xs font-medium bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-full px-2 py-0.5;
+}

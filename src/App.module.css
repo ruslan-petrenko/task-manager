@@ -1,0 +1,10 @@
+@reference "./index.css";
+@variant dark (&:where(.dark, .dark *));
+
+.main {
+  @apply min-h-screen bg-gradient-to-br from-violet-100 via-rose-50 to-sky-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900;
+}
+
+.container {
+  @apply container mx-auto max-w-5xl p-6 md:p-8;
+}

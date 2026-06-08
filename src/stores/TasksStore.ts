@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { type Task } from '../types';
+import { type Task, type TaskStatus } from '@/types';
 
 interface TasksStore {
   tasks: Task[];
   addTask: (task: Task) => void;
   updateTask: (task: Task) => void;
   deleteTask: (id: string) => void;
+  moveTask: (id: string, status: TaskStatus) => void;
 }
 
 export const useTasksStore = create<TasksStore>()(
@@ -24,6 +25,10 @@ export const useTasksStore = create<TasksStore>()(
       deleteTask: (id) =>
         set((state) => ({
           tasks: state.tasks.filter((task) => task.id !== id),
+        })),
+      moveTask: (id, status) =>
+        set((state) => ({
+          tasks: state.tasks.map((t) => (t.id === id ? { ...t, status } : t)),
         })),
     }),
     {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTasksStore } from '../stores/TasksStore';
+import { useTasksStore } from '@/stores/TasksStore';
 
 export default function useTask(id: string, title: string, description: string) {
   const updateTask = useTasksStore((s) => s.updateTask);
