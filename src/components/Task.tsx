@@ -1,14 +1,14 @@
 import { type Task } from '../types';
 import { useTasksStore } from '../stores/TasksStore';
-import Button from './Button';
-import Input from './Input';
+import UiButton from './common/UiButton';
+import UiInput from './common/UiInput';
 import useTask from '../hooks/useTask';
-import { useState } from 'react';
-import ConfirmationDialog from './ConfirmationDialog';
+import { useState, memo } from 'react';
+import ConfirmationDialog from './common/ConfirmationDialog';
 
-export default function TaskUi(props: Task) {
+export default memo(function TaskUi(props: Task) {
   const { id, title, description } = props;
-  const { deleteTask } = useTasksStore();
+  const deleteTask = useTasksStore((s) => s.deleteTask);
   const {
     isUpdateTaskOpen,
     taskTitle,
@@ -41,13 +41,13 @@ export default function TaskUi(props: Task) {
         <div className="flex flex-col gap-2">
           {isUpdateTaskOpen ? (
             <div>
-              <Input
+              <UiInput
                 label="Title"
                 type="text"
                 value={taskTitle}
                 onChange={(e) => setTaskTitle(e.target.value)}
               />
-              <Input
+              <UiInput
                 label="Description"
                 type="text"
                 value={taskDescription}
@@ -64,12 +64,12 @@ export default function TaskUi(props: Task) {
         <div className="flex flex-row gap-2">
           {isUpdateTaskOpen ? (
             <>
-              <Button
+              <UiButton
                 className="bg-green-500 text-white p-2 rounded-md cursor-pointer"
                 onClick={handleSaveUpdateTask}
                 label="Save"
               />
-              <Button
+              <UiButton
                 className="bg-blue-500 text-white p-2 rounded-md cursor-pointer"
                 onClick={handleCancelUpdateTask}
                 label="Cancel"
@@ -77,12 +77,12 @@ export default function TaskUi(props: Task) {
             </>
           ) : (
             <>
-              <Button
+              <UiButton
                 className="bg-blue-500 text-white p-2 rounded-md cursor-pointer"
                 onClick={handleUpdateTask}
                 label="Update"
               />
-              <Button
+              <UiButton
                 className="bg-red-500 text-white p-2 rounded-md cursor-pointer"
                 onClick={() => setIsConfirmationDialogOpen(true)}
                 label="Delete"
@@ -93,4 +93,4 @@ export default function TaskUi(props: Task) {
       </div>
     </>
   );
-}
+});

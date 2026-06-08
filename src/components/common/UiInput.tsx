@@ -7,7 +7,7 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
   containerClassName?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+const UiInput = forwardRef<HTMLInputElement, InputProps>(function UiInput(
   { label, error, helperText, containerClassName = '', id, required, className = '', ...inputProps },
   ref,
 ) {
@@ -57,4 +57,4 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   );
 });
 
-export default Input;
+export default UiInput;

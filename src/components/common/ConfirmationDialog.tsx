@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import Button from './Button';
+import UiButton from './UiButton';
 
 interface ConfirmationDialogProps {
   title: string;
@@ -15,12 +15,12 @@ export default function ConfirmationDialog(props: ConfirmationDialogProps) {
         <h1>{title}</h1>
         <p className="mb-5">{description}</p>
         <div className="flex flex-row gap-2 justify-end">
-          <Button
+          <UiButton
             className="bg-green-500 text-white p-2 rounded-md cursor-pointer"
             onClick={onConfirm}
             label="Confirm"
           />
-          <Button
+          <UiButton
             className="bg-red-500 text-white p-2 rounded-md cursor-pointer"
             onClick={onCancel}
             label="Cancel"

@@ -4,11 +4,11 @@ interface ButtonProps {
   className: string;
   label: string;
 }
-export default function Button(props: ButtonProps) {
+export default function UiButton(props: ButtonProps) {
   const { children, onClick, className, label } = props;
   return (
     <button
-      className={className}
+      className={`${className} cursor-pointer`}
       onClick={onClick}
     >
       {label ?? children}

@@ -1,10 +1,10 @@
 import { type Task } from '../types';
-import TaskUi from './TaskUi';
+import TaskUi from './Task';
 
 interface Props {
   tasks: Task[];
 }
-export default function TaskListUi(props: Props) {
+export default function TaskList(props: Props) {
   const { tasks } = props;
   return (
     <>

@@ -1,39 +1,16 @@
-import { useState } from 'react';
-import Input from './Input';
-import { v4 as uuidv4 } from 'uuid';
 import { type Task } from '../types';
-import Button from './Button';
+import useTaskForm from '../hooks/useTaskForm';
+import UiInput from './common/UiInput';
+import UiButton from './common/UiButton';
 
-interface AddTaskFormProps {
-  taskTitle: string;
-  taskDescription: string;
-  setTaskTitle: (title: string) => void;
-  setTaskDescription: (description: string) => void;
-  handleAddTask: (task: Task) => void;
-  cancelAddTask: () => void;
-}
-export default function AddTaskForm(props: AddTaskFormProps) {
-  const { taskTitle, taskDescription, setTaskTitle, setTaskDescription, handleAddTask, cancelAddTask } = props;
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = () => {
-    setSubmitted(true);
-    if (!taskTitle.length) return;
-
-    handleAddTask({
-      id: uuidv4(),
-      title: taskTitle,
-      description: taskDescription,
-      completed: false,
-      createdAt: new Date().toISOString(),
-    });
-    setSubmitted(false);
-  };
+export default function AddTaskForm(props: { addTask: (task: Task) => void; cancel: () => void }) {
+  const { addTask, cancel } = props;
+  const { taskTitle, taskDescription, submitted, setTaskTitle, setTaskDescription, handleSubmit, cancelAddTask } = useTaskForm(addTask, cancel);
 
   return (
     <div className="mb-8 flex flex-row justify-between items-end gap-4 rounded-2xl border border-white/70 bg-white/80 p-6 shadow-lg shadow-violet-200/50 backdrop-blur-sm">
       <div className="flex flex-row self-baseline gap-2">
-        <Input
+        <UiInput
           label="Title"
           type="text"
           placeholder="Add a new task"
@@ -42,7 +19,7 @@ export default function AddTaskForm(props: AddTaskFormProps) {
           required
           error={submitted && !taskTitle.length ? 'This field is required' : undefined}
         />
-        <Input
+        <UiInput
           label="Description"
           type="text"
           placeholder="Add a description"
@@ -51,12 +28,12 @@ export default function AddTaskForm(props: AddTaskFormProps) {
         />
       </div>
       <div className="flex flex-row gap-2 self-end">
-        <Button
+        <UiButton
           className="self-baseline rounded-lg bg-violet-500 px-4 py-2 font-medium text-white shadow-md shadow-violet-300/60 transition hover:bg-violet-600"
           onClick={handleSubmit}
           label="Add"
         />
-        <Button
+        <UiButton
           className="self-baseline rounded-lg bg-violet-500 px-4 py-2 font-medium text-white shadow-md shadow-violet-300/60 transition hover:bg-violet-600"
           onClick={cancelAddTask}
           label="Cancel"
