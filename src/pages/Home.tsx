@@ -1,12 +1,10 @@
 import UiButton from "../components/common/UiButton";
 import AddTaskForm from "../components/AddTaskForm";
-import TaskListUi from "../components/TaskList";
+import KanbanBoard from "../components/KanbanBoard";
 import { useState } from "react";
-import { useTasksStore } from "../stores/TasksStore";
 
 export default function Home() {
   const [isAddTaskFormOpen, setIsAddTaskFormOpen] = useState(false);
-  const tasks = useTasksStore((s) => s.tasks);
   return (
     <>
       <div className="flex flex-row justify-between items-center mb-6">
@@ -18,7 +16,7 @@ export default function Home() {
         />
       </div>
       {isAddTaskFormOpen && <AddTaskForm cancel={() => setIsAddTaskFormOpen(false)} />}
-      <TaskListUi tasks={tasks} />
+      <KanbanBoard />
     </>
   );
 };

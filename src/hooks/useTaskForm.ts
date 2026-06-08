@@ -35,6 +35,7 @@ export default function useTaskForm(cancel: () => void) {
       description: taskDescription,
       completed: false,
       createdAt: new Date().toISOString(),
+      status: 'todo',
     });
     setSubmitted(false);
   }, [handleAddTask, taskTitle, taskDescription]);
