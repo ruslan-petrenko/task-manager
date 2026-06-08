@@ -7,8 +7,6 @@ import UiButton from './components/common/UiButton';
 function App() {
   const [isAddTaskFormOpen, setIsAddTaskFormOpen] = useState<boolean>(false);
   const tasks = useTasksStore((s) => s.tasks);
-  const addTask = useTasksStore((s) => s.addTask);
-
   return (
     <main className="min-h-screen bg-gradient-to-br from-violet-100 via-rose-50 to-sky-100">
       <div className="container mx-auto max-w-5xl p-6 md:p-8">
@@ -20,12 +18,7 @@ function App() {
             label="Add Task"
           />
         </div>
-        {isAddTaskFormOpen && (
-          <AddTaskForm
-            addTask={addTask}
-            cancel={() => setIsAddTaskFormOpen(false)}
-          />
-        )}
+        {isAddTaskFormOpen && <AddTaskForm cancel={() => setIsAddTaskFormOpen(false)} />}
         <TaskListUi tasks={tasks} />
       </div>
     </main>

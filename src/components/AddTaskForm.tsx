@@ -3,9 +3,9 @@ import useTaskForm from '../hooks/useTaskForm';
 import UiInput from './common/UiInput';
 import UiButton from './common/UiButton';
 
-export default function AddTaskForm(props: { addTask: (task: Task) => void; cancel: () => void }) {
-  const { addTask, cancel } = props;
-  const { taskTitle, taskDescription, submitted, setTaskTitle, setTaskDescription, handleSubmit, cancelAddTask } = useTaskForm(addTask, cancel);
+export default function AddTaskForm(props: { cancel: () => void }) {
+  const { cancel } = props;
+  const { taskTitle, taskDescription, submitted, setTaskTitle, setTaskDescription, handleSubmit, cancelAddTask } = useTaskForm(cancel);
 
   return (
     <div className="mb-8 flex flex-row justify-between items-end gap-4 rounded-2xl border border-white/70 bg-white/80 p-6 shadow-lg shadow-violet-200/50 backdrop-blur-sm">
