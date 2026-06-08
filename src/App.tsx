@@ -1,18 +1,16 @@
-import NavBar from './components/NavBar';
-import Home from './pages/Home';
+import NavBar from '@/components/NavBar/NavBar';
+import Home from '@/pages/Home/Home';
 import { Routes, Route } from 'react-router';
+import styles from './App.module.css';
 
 function App() {
   return (
     <>
       <NavBar />
-      <main className="min-h-screen bg-gradient-to-br from-violet-100 via-rose-50 to-sky-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        <div className="container mx-auto max-w-5xl p-6 md:p-8">
+      <main className={styles.main}>
+        <div className={styles.container}>
           <Routes>
-            <Route
-              path="/"
-              element={<Home />}
-            />
+            <Route path="/" element={<Home />} />
           </Routes>
         </div>
       </main>

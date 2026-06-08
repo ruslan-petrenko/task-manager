@@ -1,12 +1,13 @@
-import { type Task } from '../types';
-import { useTasksStore } from '../stores/TasksStore';
-import UiButton from './common/UiButton';
-import UiInput from './common/UiInput';
-import useTask from '../hooks/useTask';
+import { type Task } from '@/types';
+import { useTasksStore } from '@/stores/TasksStore';
+import UiButton from '@/components/common/UiButton/UiButton';
+import UiInput from '@/components/common/UiInput/UiInput';
+import useTask from '@/hooks/useTask';
 import { useState, memo } from 'react';
-import ConfirmationDialog from './common/ConfirmationDialog';
+import ConfirmationDialog from '@/components/common/ConfirmationDialog/ConfirmationDialog';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
+import styles from './Task.module.css';
 
 export default memo(function TaskUi(props: Task) {
   const { id, title, description } = props;
@@ -23,13 +24,13 @@ export default memo(function TaskUi(props: Task) {
     handleCancelUpdateTask,
   } = useTask(id, title, description);
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
+
   const handleConfirmDelete = () => {
     deleteTask(id);
     setIsConfirmationDialogOpen(false);
   };
-  const handleCancelDelete = () => {
-    setIsConfirmationDialogOpen(false);
-  };
+  const handleCancelDelete = () => setIsConfirmationDialogOpen(false);
+
   const style = { transform: CSS.Translate.toString(transform) };
 
   return (
@@ -45,11 +46,11 @@ export default memo(function TaskUi(props: Task) {
       <div
         ref={setNodeRef}
         style={style}
-        className={`flex flex-col gap-3 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-opacity ${isDragging ? 'opacity-40' : 'opacity-100'}`}
+        className={`${styles.card} ${isDragging ? styles.dragging : ''}`}
       >
-        <div className="flex items-center justify-between">
+        <div className={styles.header}>
           {isUpdateTaskOpen ? (
-            <div className="flex flex-col gap-1 w-full">
+            <div className={styles.editFields}>
               <UiInput
                 label="Title"
                 type="text"
@@ -64,17 +65,15 @@ export default memo(function TaskUi(props: Task) {
               />
             </div>
           ) : (
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-gray-800 dark:text-gray-100 truncate">{title}</p>
-              {description && (
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">{description}</p>
-              )}
+            <div className={styles.content}>
+              <p className={styles.title}>{title}</p>
+              {description && <p className={styles.description}>{description}</p>}
             </div>
           )}
           <button
             {...attributes}
             {...listeners}
-            className="ml-2 shrink-0 cursor-grab active:cursor-grabbing text-gray-300 dark:text-gray-600 hover:text-violet-400 dark:hover:text-violet-400 transition-colors touch-none"
+            className={styles.dragHandle}
             aria-label="Drag task"
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
@@ -87,32 +86,16 @@ export default memo(function TaskUi(props: Task) {
             </svg>
           </button>
         </div>
-        <div className="flex gap-1.5 justify-end">
+        <div className={styles.actions}>
           {isUpdateTaskOpen ? (
             <>
-              <UiButton
-                className="text-xs bg-green-500 hover:bg-green-600 text-white px-2.5 py-1 rounded cursor-pointer"
-                onClick={handleSaveUpdateTask}
-                label="Save"
-              />
-              <UiButton
-                className="text-xs bg-gray-400 hover:bg-gray-500 text-white px-2.5 py-1 rounded cursor-pointer"
-                onClick={handleCancelUpdateTask}
-                label="Cancel"
-              />
+              <UiButton className={styles.btnSave} onClick={handleSaveUpdateTask} label="Save" />
+              <UiButton className={styles.btnCancel} onClick={handleCancelUpdateTask} label="Cancel" />
             </>
           ) : (
             <>
-              <UiButton
-                className="text-xs bg-violet-500 hover:bg-violet-600 text-white px-2.5 py-1 rounded cursor-pointer"
-                onClick={handleUpdateTask}
-                label="Edit"
-              />
-              <UiButton
-                className="text-xs bg-red-500 hover:bg-red-600 text-white px-2.5 py-1 rounded cursor-pointer"
-                onClick={() => setIsConfirmationDialogOpen(true)}
-                label="Delete"
-              />
+              <UiButton className={styles.btnEdit} onClick={handleUpdateTask} label="Edit" />
+              <UiButton className={styles.btnDelete} onClick={() => setIsConfirmationDialogOpen(true)} label="Delete" />
             </>
           )}
         </div>

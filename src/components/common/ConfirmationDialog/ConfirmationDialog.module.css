@@ -1,0 +1,30 @@
+@reference "../../../index.css";
+@variant dark (&:where(.dark, .dark *));
+
+.overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50;
+}
+
+.dialog {
+  @apply bg-white dark:bg-gray-800 p-4 rounded-md;
+}
+
+.title {
+  @apply font-semibold dark:text-white;
+}
+
+.description {
+  @apply mb-5 text-gray-600 dark:text-gray-400;
+}
+
+.actions {
+  @apply flex flex-row gap-2 justify-end;
+}
+
+.btnConfirm {
+  @apply bg-green-500 text-white p-2 rounded-md cursor-pointer;
+}
+
+.btnCancel {
+  @apply bg-red-500 text-white p-2 rounded-md cursor-pointer;
+}

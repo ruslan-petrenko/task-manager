@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { type Task } from '../types';
-import { useTasksStore } from '../stores/TasksStore';
+import { type Task } from '@/types';
+import { useTasksStore } from '@/stores/TasksStore';
 
 export default function useTaskForm(cancel: () => void) {
   const [taskTitle, setTaskTitle] = useState<string>('');

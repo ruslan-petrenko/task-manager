@@ -1,9 +1,10 @@
 import { DndContext, type DragEndEvent, DragOverlay, type DragStartEvent } from '@dnd-kit/core';
 import { useState } from 'react';
-import { useTasksStore } from '../stores/TasksStore';
-import { type Task, type TaskStatus } from '../types';
-import KanbanColumn from './KanbanColumn';
-import TaskUi from './Task';
+import { useTasksStore } from '@/stores/TasksStore';
+import { type Task, type TaskStatus } from '@/types';
+import KanbanColumn from '@/components/KanbanColumn/KanbanColumn';
+import TaskUi from '@/components/Task/Task';
+import styles from './KanbanBoard.module.css';
 
 const COLUMNS: { id: TaskStatus; label: string }[] = [
   { id: 'todo', label: 'To Do' },
@@ -34,11 +35,8 @@ export default function KanbanBoard() {
   };
 
   return (
-    <DndContext
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-    >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <div className={styles.grid}>
         {COLUMNS.map((col) => (
           <KanbanColumn
             key={col.id}
@@ -50,7 +48,7 @@ export default function KanbanBoard() {
       </div>
       <DragOverlay>
         {activeTask ? (
-          <div className="rotate-1 shadow-xl opacity-95">
+          <div className={styles.overlay}>
             <TaskUi {...activeTask} />
           </div>
         ) : null}
