@@ -2,6 +2,7 @@ import { NavLink } from 'react-router';
 import useNavLinks from '@/hooks/useNavLinks';
 import { useTheme } from '@/context/ThemeContext';
 import styles from './NavBar.module.css';
+import UiButton from '@/components/common/UiButton/UiButton';
 
 export default function NavBar() {
   const { links } = useNavLinks();
@@ -19,9 +20,13 @@ export default function NavBar() {
             {link.label}
           </NavLink>
         ))}
-        <button onClick={toggleTheme} className={styles.themeToggle} aria-label="Toggle theme">
+        <UiButton
+          onClick={toggleTheme}
+          className={styles.themeToggle}
+          aria-label="Toggle theme"
+        >
           {theme === 'dark' ? '☀️' : '🌙'}
-        </button>
+        </UiButton>
       </nav>
     </header>
   );
