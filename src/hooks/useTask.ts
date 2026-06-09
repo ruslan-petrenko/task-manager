@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useTasksStore } from '@/stores/TasksStore';
 
@@ -12,11 +12,6 @@ export default function useTask(id: string) {
   const navigate = useNavigate();
   const updateTask = useTasksStore((s) => s.updateTask);
   const deleteTask = useTasksStore((s) => s.deleteTask);
-
-  useEffect(() => {
-    setTaskTitle(task?.title ?? '');
-    setTaskDescription(task?.description ?? '');
-  }, [task?.id, task?.title, task?.description]);
 
   const handleUpdateTask = () => {
     navigate(`/edit/${id}`);
