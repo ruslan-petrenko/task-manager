@@ -1,0 +1,74 @@
+import useTask from '@/hooks/useTask';
+import UiButton from '@/components/common/UiButton/UiButton';
+import UiInput from '@/components/common/UiInput/UiInput';
+import styles from './EditTaskSideBar.module.css';
+
+interface EditTaskSideBarProps {
+  taskId: string;
+}
+
+export default function EditTaskSideBar({ taskId }: EditTaskSideBarProps) {
+  const { taskTitle, setTaskTitle, taskDescription, setTaskDescription, handleSaveUpdateTask, handleCancelUpdateTask } = useTask(taskId);
+
+  return (
+    <>
+      <div
+        className={styles.overlay}
+        onClick={handleCancelUpdateTask}
+        aria-hidden="true"
+      />
+      <aside
+        className={styles.sidebar}
+        role="dialog"
+        aria-labelledby="edit-task-title"
+      >
+        <div className={styles.header}>
+          <h2
+            id="edit-task-title"
+            className={styles.title}
+          >
+            Edit Task
+          </h2>
+          <button
+            type="button"
+            className={styles.closeBtn}
+            onClick={handleCancelUpdateTask}
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className={styles.body}>
+          <div className={styles.fields}>
+            <UiInput
+              label="Title"
+              type="text"
+              value={taskTitle}
+              onChange={(e) => setTaskTitle(e.target.value)}
+            />
+            <UiInput
+              label="Description"
+              type="text"
+              value={taskDescription}
+              onChange={(e) => setTaskDescription(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className={styles.footer}>
+          <UiButton
+            className={styles.btnCancel}
+            onClick={handleCancelUpdateTask}
+            label="Cancel"
+          />
+          <UiButton
+            className={styles.btnSave}
+            onClick={handleSaveUpdateTask}
+            label="Save"
+          />
+        </div>
+      </aside>
+    </>
+  );
+}

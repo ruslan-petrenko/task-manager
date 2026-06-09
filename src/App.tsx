@@ -11,6 +11,7 @@ function App() {
         <div className={styles.container}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/edit/:taskId" element={<Home />} />
           </Routes>
         </div>
       </main>
