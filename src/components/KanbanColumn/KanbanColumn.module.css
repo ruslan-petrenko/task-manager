@@ -1,5 +1,4 @@
 @reference "../../index.css";
-@variant dark (&:where(.dark, .dark *));
 
 .column {
   @apply flex flex-col gap-3 rounded-xl p-4 min-h-96 transition-colors border;

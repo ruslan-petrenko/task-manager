@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 /* Enable class-based dark mode for Tailwind v4 */
-@variant dark (&:where(.dark, .dark *));
+@variant dark (&:where(:global(.dark), :global(.dark) *));
 
 body {
   margin: 0;

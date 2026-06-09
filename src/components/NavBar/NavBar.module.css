@@ -1,6 +1,4 @@
 @reference "../../index.css";
-@variant dark (&:where(.dark, .dark *));
-
 .header {
   @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-violet-100 dark:border-gray-700 shadow-sm shadow-violet-100/50 dark:shadow-gray-900/50;
 }

@@ -1,5 +1,4 @@
 @reference "../../index.css";
-@variant dark (&:where(.dark, .dark *));
 
 .card {
   @apply flex flex-col gap-3 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-opacity;

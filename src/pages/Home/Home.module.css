@@ -1,5 +1,4 @@
 @reference "../../index.css";
-@variant dark (&:where(.dark, .dark *));
 
 .header {
   @apply flex flex-row justify-between items-center mb-6;
