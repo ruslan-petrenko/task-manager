@@ -1,14 +1,14 @@
-import useTask from '@/hooks/useTask';
 import UiButton from '@/components/common/UiButton/UiButton';
 import UiInput from '@/components/common/UiInput/UiInput';
 import styles from './EditTaskSideBar.module.css';
+import { useEditTask } from '@/hooks/useEditTask';
 
 interface EditTaskSideBarProps {
   taskId: string;
 }
 
 export default function EditTaskSideBar({ taskId }: EditTaskSideBarProps) {
-  const { taskTitle, setTaskTitle, taskDescription, setTaskDescription, handleSaveUpdateTask, handleCancelUpdateTask } = useTask(taskId);
+  const { taskTitle, setTaskTitle, taskDescription, setTaskDescription, handleSaveUpdateTask, handleCancelUpdateTask } = useEditTask(taskId);
 
   return (
     <>

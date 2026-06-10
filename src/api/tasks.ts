@@ -3,6 +3,11 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3001/tasks';
 
+export const getTask = async (id: string): Promise<Task> => {
+  const response = await axios.get<Task>(`${API_URL}/${id}`);
+  return response.data;
+};
+
 export const getTasks = async (): Promise<Task[]> => {
   const response = await axios.get<Task[]>(API_URL);
   return response.data;
@@ -14,7 +19,7 @@ export const createTask = async (task: Task) => {
 };
 
 export const updateTask = async (task: Task) => {
-  const response = await axios.put(`${API_URL}/${task.id}`, task);
+  const response = await axios.patch(`${API_URL}/${task.id}`, task);
   return response;
 };
 
