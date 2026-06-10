@@ -1,10 +1,11 @@
 import { DndContext, type DragEndEvent, DragOverlay, type DragStartEvent } from '@dnd-kit/core';
 import { useState } from 'react';
-import { useTasksStore } from '@/stores/TasksStore';
 import { type Task, type TaskStatus } from '@/types';
 import KanbanColumn from '@/components/KanbanColumn/KanbanColumn';
 import TaskUi from '@/components/Task/Task';
 import styles from './KanbanBoard.module.css';
+import { useTasks } from '@/hooks/api/useTasks';
+import { useMoveTask } from '@/hooks/api/useMoveTask';
 
 const COLUMNS: { id: TaskStatus; label: string }[] = [
   { id: 'todo', label: 'To Do' },
@@ -13,12 +14,12 @@ const COLUMNS: { id: TaskStatus; label: string }[] = [
 ];
 
 export default function KanbanBoard() {
-  const tasks = useTasksStore((s) => s.tasks);
-  const moveTask = useTasksStore((s) => s.moveTask);
+  const { tasks } = useTasks();
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const { moveTaskMutation } = useMoveTask();
 
   const handleDragStart = (event: DragStartEvent) => {
-    const task = tasks.find((t) => t.id === event.active.id);
+    const task = tasks?.find((t) => t.id === event.active.id);
     setActiveTask(task ?? null);
   };
 
@@ -26,23 +27,26 @@ export default function KanbanBoard() {
     const { active, over } = event;
     if (over) {
       const targetStatus = over.id as TaskStatus;
-      const task = tasks.find((t) => t.id === active.id);
+      const task = tasks?.find((t) => t.id === active.id);
       if (task && task.status !== targetStatus) {
-        moveTask(String(active.id), targetStatus);
+        moveTaskMutation({ id: String(active.id), status: targetStatus });
       }
     }
     setActiveTask(null);
   };
 
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndContext
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <div className={styles.grid}>
         {COLUMNS.map((col) => (
           <KanbanColumn
             key={col.id}
             id={col.id}
             label={col.label}
-            tasks={tasks.filter((t) => (t.status ?? 'todo') === col.id)}
+            tasks={(tasks ?? []).filter((t) => (t.status ?? 'todo') === col.id)}
           />
         ))}
       </div>

@@ -1,35 +1,23 @@
 import { useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { type Task } from '@/types';
-import { useTasksStore } from '@/stores/TasksStore';
+import { useCreateTask } from './api/useCreateTask';
 
 export default function useTaskForm(cancel: () => void) {
   const [taskTitle, setTaskTitle] = useState<string>('');
   const [taskDescription, setTaskDescription] = useState<string>('');
   const [submitted, setSubmitted] = useState(false);
-  const addTask = useTasksStore((s) => s.addTask);
-
-  const handleAddTask = useCallback(
-    (task: Task) => {
-      if (!task.title.length) return;
-      addTask(task);
-      setTaskTitle('');
-      setTaskDescription('');
-    },
-    [addTask],
-  );
-
+  const { createTaskMutation } = useCreateTask();
   const cancelAddTask = useCallback(() => {
     setTaskTitle('');
     setTaskDescription('');
     cancel();
   }, [cancel]);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     setSubmitted(true);
     if (!taskTitle.length) return;
 
-    handleAddTask({
+    await createTaskMutation({
       id: uuidv4(),
       title: taskTitle,
       description: taskDescription,
@@ -37,8 +25,10 @@ export default function useTaskForm(cancel: () => void) {
       createdAt: new Date().toISOString(),
       status: 'todo',
     });
+    setTaskTitle('');
+    setTaskDescription('');
     setSubmitted(false);
-  }, [handleAddTask, taskTitle, taskDescription]);
+  }, [createTaskMutation, taskTitle, taskDescription]);
 
   return {
     taskTitle,

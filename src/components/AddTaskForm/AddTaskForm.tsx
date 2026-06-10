@@ -5,8 +5,7 @@ import styles from './AddTaskForm.module.css';
 
 export default function AddTaskForm(props: { cancel: () => void }) {
   const { cancel } = props;
-  const { taskTitle, taskDescription, submitted, setTaskTitle, setTaskDescription, handleSubmit, cancelAddTask } =
-    useTaskForm(cancel);
+  const { taskTitle, taskDescription, submitted, setTaskTitle, setTaskDescription, handleSubmit, cancelAddTask } = useTaskForm(cancel);
 
   return (
     <div className={styles.form}>
@@ -29,8 +28,16 @@ export default function AddTaskForm(props: { cancel: () => void }) {
         />
       </div>
       <div className={styles.actions}>
-        <UiButton className={styles.btn} onClick={handleSubmit} label="Add" />
-        <UiButton className={styles.btn} onClick={cancelAddTask} label="Cancel" />
+        <UiButton
+          className={styles.btn}
+          onClick={handleSubmit}
+          label="Add"
+        />
+        <UiButton
+          className={styles.btn}
+          onClick={cancelAddTask}
+          label="Cancel"
+        />
       </div>
     </div>
   );

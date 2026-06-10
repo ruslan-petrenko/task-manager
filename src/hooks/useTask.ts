@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useTasksStore } from '@/stores/TasksStore';
+import { useDeleteTask } from './api/useDeleteTask';
+import { useUpdateTask } from './api/useUpdateTask';
 
 export default function useTask(id: string) {
   const task = useTasksStore((s) => s.tasks.find((t) => t.id === id) ?? null);
@@ -10,16 +12,22 @@ export default function useTask(id: string) {
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
 
   const navigate = useNavigate();
-  const updateTask = useTasksStore((s) => s.updateTask);
-  const deleteTask = useTasksStore((s) => s.deleteTask);
-
+  const { updateTaskMutation } = useUpdateTask();
+  const { deleteTaskMutation } = useDeleteTask();
   const handleUpdateTask = () => {
     navigate(`/edit/${id}`);
   };
 
-  const handleSaveUpdateTask = () => {
+  const handleSaveUpdateTask = async () => {
     if (!task) return;
-    updateTask({ ...task, title: taskTitle, description: taskDescription });
+    await updateTaskMutation({
+      id,
+      title: taskTitle,
+      description: taskDescription,
+      completed: task.completed,
+      createdAt: task.createdAt,
+      status: task.status,
+    });
     navigate('/');
   };
 
@@ -29,8 +37,8 @@ export default function useTask(id: string) {
     navigate('/');
   };
 
-  const handleConfirmDelete = () => {
-    deleteTask(id);
+  const handleConfirmDelete = async () => {
+    await deleteTaskMutation(id);
     setIsConfirmationDialogOpen(false);
   };
 
