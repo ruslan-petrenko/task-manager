@@ -55,3 +55,32 @@
 .btnDelete {
   @apply text-xs bg-red-500 hover:bg-red-600 text-white px-2.5 py-1 rounded cursor-pointer;
 }
+
+.todo {
+  @apply bg-blue-50 border-l-4 border-blue-500;
+}
+
+.inProgress {
+  @apply bg-yellow-50 border-l-4 border-yellow-500;
+}
+
+.done {
+  @apply bg-green-50 border-l-4 border-green-500;
+}
+
+/* Badges for task statuses */
+.badge {
+  @apply inline-block rounded px-2 py-0.5 text-xs font-semibold;
+}
+
+.badgeTodo {
+  @apply bg-blue-500 text-white;
+}
+
+.badgeInProgress {
+  @apply bg-yellow-500 text-gray-800;
+}
+
+.badgeDone {
+  @apply bg-green-500 text-white;
+}

@@ -9,8 +9,8 @@ import styles from './Task.module.css';
 import DragButton from './components/DragButton';
 
 export default memo(function TaskUi(props: Task) {
-  const { id } = props;
-  const { task, handleUpdateTask, handleConfirmDelete, handleCancelDelete, isConfirmationDialogOpen, setIsConfirmationDialogOpen } = useTask(id);
+  const { id, title, description, status } = props;
+  const { handleUpdateTask, handleConfirmDelete, handleCancelDelete, isConfirmationDialogOpen, setIsConfirmationDialogOpen } = useTask(id);
   const { setNodeRef, transform, isDragging, attributes, listeners } = useDraggable({ id });
 
   const style = { transform: CSS.Translate.toString(transform) };
@@ -28,12 +28,12 @@ export default memo(function TaskUi(props: Task) {
       <div
         ref={setNodeRef}
         style={style}
-        className={`${styles.card} ${isDragging ? styles.dragging : ''}`}
+        className={`${styles.card} ${isDragging ? styles.dragging : ''} ${status === 'todo' ? styles.todo : status === 'in-progress' ? styles.inProgress : styles.done}`}
       >
         <div className={styles.header}>
           <div className={styles.content}>
-            <p className={styles.title}>{task?.title ?? ''}</p>
-            {task?.description && <p className={styles.description}>{task?.description}</p>}
+            <p className={styles.title}>{title ?? ''}</p>
+            {description && <p className={styles.description}>{description}</p>}
           </div>
           <DragButton
             attributes={attributes}

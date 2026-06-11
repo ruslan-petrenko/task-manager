@@ -1,14 +1,21 @@
-import useTask from '@/hooks/useTask';
 import UiButton from '@/components/common/UiButton/UiButton';
 import UiInput from '@/components/common/UiInput/UiInput';
 import styles from './EditTaskSideBar.module.css';
+import { useEditTask } from '@/hooks/useEditTask';
+import { useQuery } from '@tanstack/react-query';
+import { getTask } from '@/api/tasks';
+import type { Task } from '@/types';
 
 interface EditTaskSideBarProps {
   taskId: string;
 }
 
-export default function EditTaskSideBar({ taskId }: EditTaskSideBarProps) {
-  const { taskTitle, setTaskTitle, taskDescription, setTaskDescription, handleSaveUpdateTask, handleCancelUpdateTask } = useTask(taskId);
+interface EditTaskFormProps {
+  task: Task;
+}
+
+function EditTaskForm({ task }: EditTaskFormProps) {
+  const { taskTitle, setTaskTitle, taskDescription, setTaskDescription, handleSaveUpdateTask, handleCancelUpdateTask } = useEditTask(task);
 
   return (
     <>
@@ -71,4 +78,15 @@ export default function EditTaskSideBar({ taskId }: EditTaskSideBarProps) {
       </aside>
     </>
   );
+}
+
+export default function EditTaskSideBar({ taskId }: EditTaskSideBarProps) {
+  const { data: task, isLoading } = useQuery({
+    queryKey: ['task', taskId],
+    queryFn: () => getTask(taskId),
+  });
+
+  if (isLoading || !task) return null;
+
+  return <EditTaskForm key={task.id} task={task} />;
 }
