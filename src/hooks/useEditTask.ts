@@ -1,7 +1,7 @@
 import { getTask } from '@/api/tasks';
 import { useQuery } from '@tanstack/react-query';
 import { useUpdateTask } from './api/useUpdateTask';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 export const useEditTask = (id: string) => {
@@ -37,6 +37,16 @@ export const useEditTask = (id: string) => {
     setStatus(task?.status ?? 'todo');
     navigate('/');
   };
+
+  useEffect(() => {
+    if (task) {
+      setTaskTitle(task?.title ?? '');
+      setTaskDescription(task?.description ?? '');
+      setCompleted(task.completed);
+      setCreatedAt(task.createdAt);
+      setStatus(task.status);
+    }
+  }, [task]);
 
   return {
     taskTitle,
