@@ -1,52 +1,32 @@
-import { getTask } from '@/api/tasks';
-import { useQuery } from '@tanstack/react-query';
+import type { Task } from '@/types';
 import { useUpdateTask } from './api/useUpdateTask';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-export const useEditTask = (id: string) => {
-  const { data: task } = useQuery({
-    queryKey: ['task', id],
-    queryFn: () => getTask(id),
-  });
+export const useEditTask = (task: Task) => {
   const { updateTaskMutation } = useUpdateTask();
-  const [taskTitle, setTaskTitle] = useState(task?.title ?? '');
-  const [taskDescription, setTaskDescription] = useState(task?.description ?? '');
-  const [completed, setCompleted] = useState(task?.completed ?? false);
-  const [createdAt, setCreatedAt] = useState(task?.createdAt ?? '');
-  const [status, setStatus] = useState(task?.status ?? 'todo');
+  const [taskTitle, setTaskTitle] = useState(task.title ?? '');
+  const [taskDescription, setTaskDescription] = useState(task.description ?? '');
+  const [completed, setCompleted] = useState(task.completed);
+  const [createdAt, setCreatedAt] = useState(task.createdAt);
+  const [status, setStatus] = useState(task.status);
   const navigate = useNavigate();
 
   const handleSaveUpdateTask = async () => {
     await updateTaskMutation({
-      id,
+      id: task.id,
       title: taskTitle,
       description: taskDescription,
-      completed: completed,
-      createdAt: createdAt,
-      status: status,
+      completed,
+      createdAt,
+      status,
     });
     navigate('/');
   };
 
   const handleCancelUpdateTask = () => {
-    setTaskTitle(task?.title ?? '');
-    setTaskDescription(task?.description ?? '');
-    setCompleted(task?.completed ?? false);
-    setCreatedAt(task?.createdAt ?? '');
-    setStatus(task?.status ?? 'todo');
     navigate('/');
   };
-
-  useEffect(() => {
-    if (task) {
-      setTaskTitle(task?.title ?? '');
-      setTaskDescription(task?.description ?? '');
-      setCompleted(task.completed);
-      setCreatedAt(task.createdAt);
-      setStatus(task.status);
-    }
-  }, [task]);
 
   return {
     taskTitle,
