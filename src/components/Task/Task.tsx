@@ -1,4 +1,4 @@
-import { type Task } from '@/types';
+import { type Task } from '../../../shared/types';
 import UiButton from '@/components/common/UiButton/UiButton';
 import useTask from '@/hooks/useTask';
 import { memo } from 'react';
