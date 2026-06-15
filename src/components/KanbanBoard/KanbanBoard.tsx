@@ -1,6 +1,6 @@
 import { DndContext, type DragEndEvent, DragOverlay, type DragStartEvent } from '@dnd-kit/core';
 import { useState } from 'react';
-import { type Task, type TaskStatus } from '@/types';
+import { type Task, type TaskStatus } from '../../../shared/types';
 import KanbanColumn from '@/components/KanbanColumn/KanbanColumn';
 import TaskUi from '@/components/Task/Task';
 import styles from './KanbanBoard.module.css';

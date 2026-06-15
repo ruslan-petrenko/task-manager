@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { moveTask as moveTaskApi } from '@/api/tasks';
-import { type TaskStatus } from '@/types';
+import type { TaskStatus } from '../../../shared/types';
 import { useQueryClient } from '@tanstack/react-query';
 
 export const useMoveTask = () => {

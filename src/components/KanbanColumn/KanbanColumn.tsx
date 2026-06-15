@@ -1,5 +1,5 @@
 import { useDroppable } from '@dnd-kit/core';
-import { type Task, type TaskStatus } from '@/types';
+import { type Task, type TaskStatus } from '../../../shared/types';
 import TaskUi from '@/components/Task/Task';
 import styles from './KanbanColumn.module.css';
 
@@ -22,7 +22,10 @@ export default function KanbanColumn({ id, label, tasks }: KanbanColumnProps) {
         <span className={styles.badge}>{tasks.length}</span>
       </div>
       {tasks.map((task) => (
-        <TaskUi key={task.id} {...task} />
+        <TaskUi
+          key={task.id}
+          {...task}
+        />
       ))}
     </div>
   );
