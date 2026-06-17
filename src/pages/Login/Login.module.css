@@ -1,0 +1,37 @@
+@reference "../../index.css";
+
+.page {
+  @apply min-h-screen flex items-center justify-center bg-linear-to-br from-violet-100 via-rose-50 to-sky-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4;
+}
+
+.card {
+  @apply w-full max-w-md rounded-2xl border border-white/70 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 p-8 shadow-lg shadow-violet-200/50 dark:shadow-gray-900/50 backdrop-blur-sm flex flex-col gap-5;
+}
+
+.title {
+  @apply text-2xl font-bold text-gray-900 dark:text-white;
+}
+
+.subtitle {
+  @apply text-sm text-gray-500 dark:text-gray-400 -mt-3;
+}
+
+.errorBanner {
+  @apply rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 px-4 py-2.5 text-sm text-red-600 dark:text-red-400;
+}
+
+.fields {
+  @apply flex flex-col gap-4;
+}
+
+.submitBtn {
+  @apply w-full rounded-lg bg-violet-500 px-4 py-2.5 font-medium text-white shadow-md shadow-violet-300/60 transition hover:bg-violet-600 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer;
+}
+
+.footer {
+  @apply text-center text-sm text-gray-500 dark:text-gray-400;
+}
+
+.link {
+  @apply font-medium text-violet-600 dark:text-violet-400 hover:underline;
+}

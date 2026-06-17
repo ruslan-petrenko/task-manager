@@ -15,6 +15,18 @@
   @apply text-sm font-medium transition-colors text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400;
 }
 
+.right {
+  @apply ml-auto flex items-center gap-3;
+}
+
+.userEmail {
+  @apply text-sm text-gray-500 dark:text-gray-400 max-w-[160px] truncate;
+}
+
 .themeToggle {
-  @apply ml-auto text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors text-lg;
+  @apply text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors text-lg;
+}
+
+.logoutBtn {
+  @apply text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors;
 }
