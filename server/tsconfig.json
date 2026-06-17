@@ -8,8 +8,10 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "noEmit": true
+    "noEmit": true,
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
+  "files": ["types/express.d.ts"],
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]
 }
