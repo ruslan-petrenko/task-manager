@@ -55,39 +55,4 @@ export async function loginUser(input: { email: string; password: string }): Pro
   return buildAuthResponse(user);
 }
 
-export async function findOrCreateOAuthUser(input: {
-  provider: 'google' | 'github';
-  providerId: string;
-  email: string;
-  name?: string;
-}): Promise<AuthResponse> {
-  const account = await prisma.account.findUnique({
-    where: {
-      provider_providerId: {
-        provider: input.provider,
-        providerId: input.providerId,
-      },
-    },
-    include: { user: true },
-  });
-  if (account) return buildAuthResponse(account.user);
-  const existingUser = await prisma.user.findUnique({ where: { email: input.email } });
-  const user = existingUser
-    ? existingUser
-    : await prisma.user.create({
-        data: {
-          email: input.email,
-          name: input.name,
-        },
-      });
-  await prisma.account.create({
-    data: {
-      provider: input.provider,
-      providerId: input.providerId,
-      userId: user.id,
-    },
-  });
-  return buildAuthResponse(user);
-}
-
 export { AuthError };

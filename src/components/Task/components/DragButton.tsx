@@ -2,7 +2,7 @@ import { type DraggableAttributes } from '@dnd-kit/core';
 import styles from '../Task.module.css';
 import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 
-export default function DragButton(props: { attributes: DraggableAttributes, listeners: SyntheticListenerMap }) {
+export default function DragButton(props: { attributes: DraggableAttributes, listeners: SyntheticListenerMap | undefined }) {
     const { attributes, listeners } = props;
     return (
         <button {...attributes}

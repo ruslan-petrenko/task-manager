@@ -1,15 +1,7 @@
 import { Router } from 'express';
-import crypto from 'crypto';
 import prisma from '../prisma/client';
 import { authenticate } from '../middleware/authenticate';
-import { AuthError, findOrCreateOAuthUser, loginUser, registerUser, toUser } from '../services/auth.service';
-import {
-  buildFrontendCallbackUrl,
-  fetchGitHubProfile,
-  fetchGoogleProfile,
-  getGitHubAuthUrl,
-  getGoogleAuthUrl,
-} from '../services/oauth.service';
+import { AuthError, loginUser, registerUser, toUser } from '../services/auth.service';
 
 const router = Router();
 
@@ -57,40 +49,6 @@ router.get('/me', authenticate, async (req, res) => {
   const user = await prisma.user.findUnique({ where: { id: req.user!.id } });
   if (!user) return res.status(404).json({ message: 'User not found' });
   return res.json(toUser(user));
-});
-
-router.get('/google', (_req, res) => {
-  const state = crypto.randomBytes(16).toString('hex');
-  res.redirect(getGoogleAuthUrl(state));
-});
-
-router.get('/google/callback', async (req, res) => {
-  try {
-    const { code } = req.query;
-    if (typeof code !== 'string') return res.status(400).send('Missing code');
-    const profile = await fetchGoogleProfile(code);
-    const auth = await findOrCreateOAuthUser(profile);
-    return res.redirect(buildFrontendCallbackUrl(auth.token));
-  } catch {
-    return res.status(500).send('Google authentication failed');
-  }
-});
-
-router.get('/github', (_req, res) => {
-  const state = crypto.randomBytes(16).toString('hex');
-  res.redirect(getGitHubAuthUrl(state));
-});
-
-router.get('/github/callback', async (req, res) => {
-  try {
-    const { code } = req.query;
-    if (typeof code !== 'string') return res.status(400).send('Missing code');
-    const profile = await fetchGitHubProfile(code);
-    const auth = await findOrCreateOAuthUser(profile);
-    return res.redirect(buildFrontendCallbackUrl(auth.token));
-  } catch {
-    return res.status(500).send('GitHub authentication failed');
-  }
 });
 
 export default router;
